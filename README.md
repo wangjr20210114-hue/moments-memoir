@@ -2,6 +2,8 @@
 
 把你发过的微信朋友圈，变成一本好看的回忆录网站。
 
+仓库地址：https://github.com/wangjr20210114-hue/moments-memoir
+
 在线教程：https://moments-memoir-guide.surge.sh
 
 ## 怎么用
