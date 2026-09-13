@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">图片占位示例</title><desc id="desc">带有山脉、道路与星光的抽象回忆插画</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10182b"/><stop offset="1" stop-color="#492564"/></linearGradient><linearGradient id="road" x2="1"><stop stop-color="#8bdcff"/><stop offset="1" stop-color="#ff9a68"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#bg)"/><circle cx="950" cy="170" r="85" fill="#ffd49b" opacity=".9"/>
+  <path d="M0 620L230 390l180 170 210-290 260 330 150-190 170 210v280H0z" fill="#172235"/>
+  <path d="M400 900C510 730 470 650 620 570s210-120 280-270" fill="none" stroke="url(#road)" stroke-width="18" stroke-linecap="round"/>
+  <g fill="#bfeaff"><circle cx="120" cy="140" r="5"/><circle cx="250" cy="210" r="3"/><circle cx="520" cy="120" r="4"/><circle cx="740" cy="220" r="3"/><circle cx="1070" cy="330" r="5"/></g>
+</svg>

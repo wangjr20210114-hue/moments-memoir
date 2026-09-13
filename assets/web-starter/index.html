@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="cinematic">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0a0d14" />
+  <title>我的朋友圈回忆录</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0d14'/%3E%3Cpath d='M13 43L27 19l9 17 7-10 8 17' fill='none' stroke='%238bdcff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="nav"><a href="#top">MEMOIR</a><nav><a href="#chapters">章节</a><a href="#ending">尾声</a></nav></header>
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow" id="range"></p>
+      <h1 id="title"></h1>
+      <p class="lede" id="intro"></p>
+      <a class="enter" href="#chapters">翻开回忆 ↓</a>
+    </section>
+    <section class="stats" id="stats" aria-label="回忆录统计"></section>
+    <section class="chapters" id="chapters"></section>
+    <section class="ending" id="ending"><p class="eyebrow">TO BE CONTINUED</p><h2 id="ending-title"></h2><p id="ending-text"></p></section>
+  </main>
+  <dialog id="detail"><button type="button" aria-label="关闭">×</button><img alt="" /><div><p class="eyebrow"></p><h2></h2><p class="dialog-text"></p><blockquote></blockquote></div></dialog>
+  <script src="./story.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
