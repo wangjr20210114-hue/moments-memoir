@@ -7,35 +7,34 @@ description: Analyze an already-exported WeChat Moments archive (moments.md + fi
 
 Analyze an already-exported WeChat Moments archive and produce a selective, factual, emotionally coherent memory work as a responsive website.
 
-If the user gives you the GitHub repo URL or a zip bundle, first clone/extract it, install this skill to the user's `.user_skills` directory, then proceed with the workflow below.
+If the user gives you the GitHub repo URL or a zip bundle, download it as a **zip file** (not git clone — git clone frequently fails on networks in China), extract it, and install the skill to the user's `.user_skills` directory.
+
+Zip URL for this repo: `https://github.com/wangjr20210114-hue/moments-memoir/archive/refs/heads/main.zip`
 
 ## Two-step workflow
 
-### Step 1: Set up the export (AI does it, user just double-clicks)
+### Step 1: Run the export yourself (no command window for the user)
 
-If the user has not yet exported their Moments, **do not tell them to open cmd and type commands yourself.** Instead:
+If the user has not yet exported their Moments, **run everything yourself via Bash. Do not create batch files on the desktop. Do not ask the user to open cmd.**
 
-1. Check if Python 3 is installed (`python --version` or `py --version`). If not, tell the user to install Python from python.org and wait.
-2. Clone [wxMoments](https://github.com/claudemt/wxMoments) to a stable location (e.g. `%LOCALAPPDATA%\MomentsMemoir\wxMoments`).
-3. Create a one-click batch file on the user's Desktop (e.g. `导出朋友圈.cmd`) that:
-   - Opens a visible terminal window
-   - Runs the wxMoments export script
-   - Keeps the window open after finishing so the user can see the output path
-4. Tell the user: "我已经帮你准备好了，双击桌面上的 `导出朋友圈.cmd`，扫码确认，等它跑完，然后回来告诉我文件夹在哪。"
-5. Wait for the user to come back with the export directory path. The user does not need to type any commands themselves.
+1. Check Python 3: run `python --version` or `py --version`. If missing, tell the user to install Python from python.org and wait.
+2. Download wxMoments as a **zip** (not git clone):
+   ```
+   curl -L -o wxmoments.zip https://github.com/claudemt/wxMoments/archive/refs/heads/main.zip
+   ```
+   Extract to `%LOCALAPPDATA%\MomentsMemoir\wxMoments`.
+3. Install wxMoments dependencies if needed: `pip install -r pyproject.toml` or check its README.
+4. Run the export directly:
+   ```
+   python src/wxmoments.py --only-self y --keep-interactions y --export-contacts n --output-root "%LOCALAPPDATA%\MomentsMemoir\exports"
+   ```
+5. **When the tool asks for input** (e.g. "select WeChat data directory", "choose account"), do NOT show a terminal window. Instead:
+   - Parse the question from the command output
+   - Ask the user via chat: "我需要你的微信数据目录路径，你可以在微信设置里找到文件管理的路径"
+   - Pass the answer back to the process
+6. When the export finishes, you'll see `moments.md` in a new timestamped folder under `output/`. Note that path and proceed.
 
-The batch file content:
-```bat
-@echo off
-chcp 65001 >nul
-title 导出朋友圈
-cd /d "%LOCALAPPDATA%\MomentsMemoir\wxMoments"
-echo 请在下方扫码确认微信登录，然后按提示操作...
-python run.bat
-echo.
-echo 导出完成！文件夹在当前目录下的 output 文件夹里。
-pause
-```
+If the tool requires a visible interactive terminal (e.g. QR code that can't be captured), then create a batch file as a fallback. But try running it directly first.
 
 ### Step 2: Ask questions before generating
 
@@ -117,11 +116,10 @@ Fix any mismatch before telling the user it's done.
 
 When the user wants to put the website online:
 
-- Use **surge.sh** free hosting. Do not deploy directly from the agent's terminal.
-- Create a Windows batch file on the user's desktop (e.g. `deploy-memoir.cmd`) that runs `surge . --domain <chosen-name>.surge.sh`.
-- The first time, the batch file will prompt for surge email and password in a visible terminal window. The user enters these personally.
-- After first login, credentials are saved and future deploys are non-interactive.
-- Tell the user to double-click the batch file if they want to deploy themselves.
+- Use **surge.sh** free hosting.
+- First try running surge directly: `surge . --domain <name>.surge.sh`.
+- If it prompts for email/password interactively (first time only), create a small batch file on the user's desktop for that one-time login, then future deploys are non-interactive from your own Bash.
+- After first login, always deploy directly: `surge . --domain <name>.surge.sh`.
 
 For a website, either adapt `assets/web-starter/` or build an equivalent responsive site. The starter supports preset themes through `data-theme`.
 
