@@ -5,7 +5,9 @@ description: Analyze an already-exported WeChat Moments archive (moments.md + fi
 
 # Moments Memoir
 
-Analyze an already-exported WeChat Moments archive and produce a selective, factual, emotionally coherent memory work as a responsive website. This skill does **not** handle WeChat login, database decryption, or raw data export.
+Analyze an already-exported WeChat Moments archive and produce a selective, factual, emotionally coherent memory work as a responsive website.
+
+If the user gives you the GitHub repo URL or a zip bundle, first clone/extract it, install this skill to the user's `.user_skills` directory, then proceed with the workflow below.
 
 ## Two-step workflow
 
