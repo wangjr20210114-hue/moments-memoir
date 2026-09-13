@@ -9,9 +9,31 @@ Analyze an already-exported WeChat Moments archive and produce a selective, fact
 
 ## Two-step workflow
 
-### Step 1: The user must export first
+### Step 1: Set up the export (AI does it, user just double-clicks)
 
-If the user has not yet exported their Moments, direct them to [README.md](README.md) which explains how to use the [wxMoments](https://github.com/claudemt/wxMoments) open-source tool. Wait until they provide a completed export directory before proceeding.
+If the user has not yet exported their Moments, **do not tell them to open cmd and type commands yourself.** Instead:
+
+1. Check if Python 3 is installed (`python --version` or `py --version`). If not, tell the user to install Python from python.org and wait.
+2. Clone [wxMoments](https://github.com/claudemt/wxMoments) to a stable location (e.g. `%LOCALAPPDATA%\MomentsMemoir\wxMoments`).
+3. Create a one-click batch file on the user's Desktop (e.g. `导出朋友圈.cmd`) that:
+   - Opens a visible terminal window
+   - Runs the wxMoments export script
+   - Keeps the window open after finishing so the user can see the output path
+4. Tell the user: "我已经帮你准备好了，双击桌面上的 `导出朋友圈.cmd`，扫码确认，等它跑完，然后回来告诉我文件夹在哪。"
+5. Wait for the user to come back with the export directory path. The user does not need to type any commands themselves.
+
+The batch file content:
+```bat
+@echo off
+chcp 65001 >nul
+title 导出朋友圈
+cd /d "%LOCALAPPDATA%\MomentsMemoir\wxMoments"
+echo 请在下方扫码确认微信登录，然后按提示操作...
+python run.bat
+echo.
+echo 导出完成！文件夹在当前目录下的 output 文件夹里。
+pause
+```
 
 ### Step 2: Ask questions before generating
 
